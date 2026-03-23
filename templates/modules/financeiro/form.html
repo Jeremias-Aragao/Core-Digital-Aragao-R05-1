@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Novo lançamento | Financeiro{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Novo lançamento</span>
+        <h1>Adicionar entrada ou saída</h1>
+        <p>Esse formulário pertence ao módulo financeiro, mas continua integrado ao Core.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container narrow panel reveal">
+        <form method="post" class="form-grid">
+            <label><span>Descrição</span><input type="text" name="description" required></label>
+            <label><span>Categoria</span><input type="text" name="category" required></label>
+            <label><span>Tipo</span>
+                <select name="entry_type" required>
+                    <option value="">Selecione</option>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+            </label>
+            <label><span>Valor</span><input type="text" name="amount" required></label>
+            <label><span>Data</span><input type="date" name="reference_date" required></label>
+            <label class="full"><span>Observações</span><textarea name="notes" rows="4"></textarea></label>
+            <div class="hero-actions full">
+                <a class="btn btn-secondary" href="{{ url_for('financeiro.index') }}">Cancelar</a>
+                <button class="btn btn-primary" type="submit">Salvar lançamento</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Planos | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Planos</span>
+        <h1>Estrutura pronta para assinatura</h1>
+        <p>O Core já nasce preparado para evoluir para uma plataforma SaaS vendável por assinatura.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container cards-grid">
+        {% for plan in plans %}
+        <article class="module-card reveal">
+            <div class="card-top"><span class="pill">Plano</span></div>
+            <h3>{{ plan.name }}</h3>
+            <p>{{ plan.description }}</p>
+            <strong class="plan-price">R$ {{ '%.2f'|format(plan.price_monthly) }}/mês</strong>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

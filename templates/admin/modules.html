@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Gerenciar módulos | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Engine de módulos</span>
+        <h1>Gerenciador de módulos</h1>
+        <p>Cadastre, ative e organize módulos no Core sem comprometer a base principal.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container two-columns">
+        <div class="panel reveal">
+            <div class="panel-head"><h2>Novo módulo</h2></div>
+            <form method="post" class="form-grid">
+                <label><span>Nome</span><input type="text" name="name" required></label>
+                <label><span>Slug</span><input type="text" name="slug" required></label>
+                <label class="full"><span>Descrição curta</span><input type="text" name="short_description" required></label>
+                <label class="full"><span>Descrição completa</span><textarea name="full_description" rows="4"></textarea></label>
+                <label><span>Categoria</span><input type="text" name="category"></label>
+                <label><span>Tipo</span><input type="text" name="module_type" placeholder="saas, institucional, interno"></label>
+                <label><span>Rota base</span><input type="text" name="route_base" placeholder="/modulos/exemplo" required></label>
+                <label><span>Ícone</span><input type="text" name="icon" placeholder="🧩"></label>
+                <label><span>Status visual</span><input type="text" name="status_label" placeholder="Ativo"></label>
+                <label><span>Ordem</span><input type="number" name="display_order" value="0"></label>
+                <label class="checkbox-row"><input type="checkbox" name="is_installed" checked> <span>Instalado</span></label>
+                <label class="checkbox-row"><input type="checkbox" name="is_active" checked> <span>Ativo</span></label>
+                <label class="checkbox-row"><input type="checkbox" name="is_public" checked> <span>Público</span></label>
+                <label class="checkbox-row"><input type="checkbox" name="show_on_home" checked> <span>Mostrar na home</span></label>
+                <button class="btn btn-primary full" type="submit">Cadastrar módulo</button>
+            </form>
+        </div>
+        <div class="panel reveal">
+            <div class="panel-head"><h2>Módulos cadastrados</h2></div>
+            <div class="table-shell">
+                <table>
+                    <thead><tr><th>Nome</th><th>Rota</th><th>Ativo</th><th>Ação</th></tr></thead>
+                    <tbody>
+                        {% for module in modules %}
+                        <tr>
+                            <td>{{ module.name }}</td>
+                            <td>{{ module.route_base }}</td>
+                            <td>{{ 'Sim' if module.is_active else 'Não' }}</td>
+                            <td>
+                                <form method="post" action="{{ url_for('admin.toggle_module', module_id=module.id) }}">
+                                    <button class="btn btn-secondary btn-mini" type="submit">Ativar/Pausar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

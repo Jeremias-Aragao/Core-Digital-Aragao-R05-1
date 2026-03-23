@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Admin | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Admin separado</span>
+        <h1>Painel de controle do Core</h1>
+        <p>Essa área controla módulos, clientes e crescimento da plataforma sem misturar com a home pública.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container metrics-grid">
+        <article class="metric-card reveal"><span>Módulos cadastrados</span><strong>{{ stats.modules_total }}</strong></article>
+        <article class="metric-card reveal"><span>Módulos ativos</span><strong>{{ stats.modules_active }}</strong></article>
+        <article class="metric-card reveal"><span>Clientes</span><strong>{{ stats.clients_total }}</strong></article>
+        <article class="metric-card reveal"><span>Assinaturas</span><strong>{{ stats.subscriptions_total }}</strong></article>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container panel reveal">
+        <div class="panel-head"><h2>Status dos módulos</h2><a class="btn btn-secondary" href="{{ url_for('admin.modules') }}">Gerenciar módulos</a></div>
+        <div class="table-shell">
+            <table>
+                <thead><tr><th>Nome</th><th>Tipo</th><th>Rota</th><th>Status</th></tr></thead>
+                <tbody>
+                    {% for module in modules %}
+                    <tr>
+                        <td>{{ module.name }}</td>
+                        <td>{{ module.module_type }}</td>
+                        <td>{{ module.route_base }}</td>
+                        <td>{{ module.status_label }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

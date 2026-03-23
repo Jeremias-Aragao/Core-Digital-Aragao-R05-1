@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Área do cliente | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Área do cliente</span>
+        <h1>Seus acessos no ecossistema</h1>
+        <p>Aqui fica a camada do cliente, separada do visitante e da administração.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container two-columns">
+        <div class="panel reveal">
+            <div class="panel-head"><h2>Módulos disponíveis</h2></div>
+            <div class="cards-list">
+                {% for module in modules %}
+                <a class="module-line" href="{{ module.route_base if module.is_installed and module.is_active else '#' }}">
+                    <span>{{ module.icon or '🧩' }} {{ module.name }}</span>
+                    <strong>{{ module.status_label }}</strong>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="panel reveal">
+            <div class="panel-head"><h2>Assinaturas</h2></div>
+            {% if subscriptions %}
+            <div class="cards-list">
+                {% for item in subscriptions %}
+                <div class="module-line"><span>{{ item.plan.name }}</span><strong>{{ item.status }}</strong></div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="muted-text">Nenhuma assinatura encontrada.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

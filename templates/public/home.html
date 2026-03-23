@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div>
+            <span class="eyebrow">Plataforma central da marca</span>
+            <h1>Organize, apresente e expanda seus sistemas sem comprometer o Core.</h1>
+            <p class="lead">O Core Digital Aragão é a base pública, premium e modular do seu ecossistema. Ele vende sua visão, mostra sua organização e recebe novos sistemas como plugins integrados.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="{{ url_for('public.solutions') }}">Explorar soluções</a>
+                <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">Entrar</a>
+            </div>
+        </div>
+        <div class="hero-card reveal">
+            <div class="metric-list">
+                <article><span>Core sempre ativo</span><strong>Base estável e independente</strong></article>
+                <article><span>Módulos plugáveis</span><strong>Integração sem quebrar o sistema</strong></article>
+                <article><span>Visão SaaS</span><strong>Pronto para assinatura e crescimento</strong></article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">Soluções em destaque</span>
+            <h2>O Core apresenta o ecossistema e mantém o padrão.</h2>
+            <p>Os módulos abaixo podem crescer por dentro sem comprometer a estrutura principal da plataforma.</p>
+        </div>
+        <div class="cards-grid">
+            {% for module in modules %}
+            <a class="module-card reveal" href="{{ module.route_base if module.is_installed and module.is_active else url_for('public.solutions') }}">
+                <div class="card-top">
+                    <span class="pill">{{ module.category }}</span>
+                    <span class="status">{{ module.status_label }}</span>
+                </div>
+                <h3>{{ module.icon or '🧩' }} {{ module.name }}</h3>
+                <p>{{ module.short_description }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

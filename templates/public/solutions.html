@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Soluções | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Ecossistema modular</span>
+        <h1>Soluções e módulos do Core</h1>
+        <p>Cada sistema entra como plugin integrado, mantendo o Core estável e o crescimento controlado.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container cards-grid">
+        {% for module in modules %}
+        <article class="module-card reveal">
+            <div class="card-top">
+                <span class="pill">{{ module.category }}</span>
+                <span class="status">{{ module.status_label }}</span>
+            </div>
+            <h3>{{ module.icon or '🧩' }} {{ module.name }}</h3>
+            <p>{{ module.full_description or module.short_description }}</p>
+            {% if module.is_installed and module.is_active %}
+            <a class="btn btn-secondary" href="{{ module.route_base }}">Abrir módulo</a>
+            {% else %}
+            <span class="muted-text">Disponível em breve</span>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

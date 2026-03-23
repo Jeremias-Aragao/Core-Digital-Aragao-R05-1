@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Financeiro | Core Digital Aragão{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="eyebrow">Módulo plugável</span>
+        <h1>Controle Financeiro</h1>
+        <p>Primeiro módulo real interno integrado ao Core, usando a rota padrão <strong>/modulos/financeiro</strong>.</p>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container metrics-grid">
+        <article class="metric-card reveal"><span>Saldo total</span><strong>R$ {{ '%.2f'|format(stats.saldo_total) }}</strong></article>
+        <article class="metric-card reveal"><span>Entradas do mês</span><strong>R$ {{ '%.2f'|format(stats.entradas_mes) }}</strong></article>
+        <article class="metric-card reveal"><span>Saídas do mês</span><strong>R$ {{ '%.2f'|format(stats.saidas_mes) }}</strong></article>
+        <article class="metric-card reveal"><a class="btn btn-primary" href="{{ url_for('financeiro.create') }}">Novo lançamento</a></article>
+    </div>
+</section>
+<section class="section compact-top">
+    <div class="container panel reveal">
+        <div class="panel-head"><h2>Lançamentos</h2></div>
+        {% if entries %}
+        <div class="table-shell">
+            <table>
+                <thead><tr><th>Descrição</th><th>Categoria</th><th>Tipo</th><th>Data</th><th>Valor</th><th>Ação</th></tr></thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.description }}</td>
+                        <td>{{ entry.category }}</td>
+                        <td>{{ entry.entry_type }}</td>
+                        <td>{{ entry.reference_date.strftime('%d/%m/%Y') }}</td>
+                        <td>R$ {{ '%.2f'|format(entry.amount) }}</td>
+                        <td>
+                            <form method="post" action="{{ url_for('financeiro.delete', entry_id=entry.id) }}">
+                                <button class="btn btn-secondary btn-mini" type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="muted-text">Nenhum lançamento ainda.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
