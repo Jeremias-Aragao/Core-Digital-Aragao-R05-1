@@ -12,6 +12,7 @@
                 <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">Entrar</a>
             </div>
         </div>
+
         <div class="hero-card reveal">
             <div class="metric-list">
                 <article><span>Core sempre ativo</span><strong>Base estável e independente</strong></article>
@@ -29,6 +30,7 @@
             <h2>O Core apresenta o ecossistema e mantém o padrão.</h2>
             <p>Os módulos abaixo podem crescer por dentro sem comprometer a estrutura principal da plataforma.</p>
         </div>
+
         <div class="cards-grid">
             {% for module in modules %}
             <a class="module-card reveal" href="{{ module.route_base if module.is_installed and module.is_active else url_for('public.solutions') }}">
@@ -43,3 +45,4 @@
         </div>
     </div>
 </section>
+{% endblock %}
